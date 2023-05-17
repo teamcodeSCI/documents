@@ -11,9 +11,16 @@
 			"item": [
 				{
 					"name": "department",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:8000/api/department",
 							"host": [
@@ -35,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"code\":\"ÁDA\",\"name\":\"sdsada\"}",
+							"raw": "{\"code\":\"PR\",\"name\":\"Paris\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,7 +71,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"code\":\"PR\",\"name\":\"Paris\"}",
+							"raw": "{\"code\":\"DA\",\"name\":\"Đông Á\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +79,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/api/department/1",
+							"raw": "localhost:8000/api/department/2",
 							"host": [
 								"localhost"
 							],
@@ -80,7 +87,7 @@
 							"path": [
 								"api",
 								"department",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -117,7 +124,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8000/api/curriculum?department_id=1",
+							"raw": "localhost:8000/api/curriculum",
 							"host": [
 								"localhost"
 							],
@@ -125,12 +132,6 @@
 							"path": [
 								"api",
 								"curriculum"
-							],
-							"query": [
-								{
-									"key": "department_id",
-									"value": "1"
-								}
 							]
 						}
 					},
@@ -375,6 +376,126 @@
 								"api",
 								"lesson",
 								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"department_id\":\"1\",\r\n    \"name\":\"Đức\",\r\n    \"email\":\"duc1@gmail.com\",\r\n    \"password\":\"123456aA\",\r\n    \"c_password\":\"123456aA\",\r\n    \"role\":\"USER\",\r\n    \"status\":\"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"duc1@gmail.com\",\r\n    \"password\":\"123456aA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjIyZmY5MDViYmUyYjkwM2Y0OTY0ZTZiZDU0OTYzZGRlYjBmNWIzMjZkNWNkMGM5YWVmMDJiZDU2NjNmZDk1ZTgwZGZmODgyYTdhNTViMGIiLCJpYXQiOjE2ODQzMDg0OTIuODE4MTM1LCJuYmYiOjE2ODQzMDg0OTIuODE4MTM4LCJleHAiOjE2ODY5MDA0OTIuODE1MDQ3LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.jnt3ayWMVhwkToDk7FLNeBCA-QErdq1bVCiyJDE7wZjwqg_Y8BLndbQvTjXuuPv-AFdf3k7JSEF6yhy8E18X56_myMv4J1TrpcdYmkH4RiEsr9Io3EkYuzpFzM35rM6i525HKoUFmi1W8PyeXEjIHsNcHtzkZ8bgzcrdmhilZXjcRPjHylFG40DCYG6CLCGmfLnH21S6A1NpTZTzzq3fNdiRd3C6k35vm0IZ1F5cnDzDe0uBkzDsh32hbUnP5OCtnXO90i2Vnp1ZjtBUooMunGI-rZkfO3RQm3JqGWlskECn1e_dxYg4FScHk05hHNy3_rxbkUn9cMHr6Q63aQy6D69BBPwqNWMXpRkWjNXU2aBquC1jwjnY-oP7dayAzK29LiTcryEUh13JIjgmr1hj9VPun3QI-mxtAebnUlCAUgfG5WKSfXBanL6dXAyGAE21m8M5rDULxXEUdStjGpsn3hybB7rafTsMHNslnN5ryUWQouJvDeTeFi3TCKhQ12JtWTv104gNPqVgqy-VxjAH1BSza9tV0vg2qFDwfanqG12BjQuOeLnATwCJLLGUFZeZQOMYoPIOFbiNHuYzjpbLPj3kEWdDj2gl2LZjZWXSAW45opafYS_Ex0HIC6MoSRzsir3WfCSRe0M3K4sGD9Ezq1LTCWnT4G2IOFlle1KMu4A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"1\",\r\n    \"password\":\"123456aA\",\r\n    \"c_password\":\"123456aA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/reset-password",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjIyZmY5MDViYmUyYjkwM2Y0OTY0ZTZiZDU0OTYzZGRlYjBmNWIzMjZkNWNkMGM5YWVmMDJiZDU2NjNmZDk1ZTgwZGZmODgyYTdhNTViMGIiLCJpYXQiOjE2ODQzMDg0OTIuODE4MTM1LCJuYmYiOjE2ODQzMDg0OTIuODE4MTM4LCJleHAiOjE2ODY5MDA0OTIuODE1MDQ3LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.jnt3ayWMVhwkToDk7FLNeBCA-QErdq1bVCiyJDE7wZjwqg_Y8BLndbQvTjXuuPv-AFdf3k7JSEF6yhy8E18X56_myMv4J1TrpcdYmkH4RiEsr9Io3EkYuzpFzM35rM6i525HKoUFmi1W8PyeXEjIHsNcHtzkZ8bgzcrdmhilZXjcRPjHylFG40DCYG6CLCGmfLnH21S6A1NpTZTzzq3fNdiRd3C6k35vm0IZ1F5cnDzDe0uBkzDsh32hbUnP5OCtnXO90i2Vnp1ZjtBUooMunGI-rZkfO3RQm3JqGWlskECn1e_dxYg4FScHk05hHNy3_rxbkUn9cMHr6Q63aQy6D69BBPwqNWMXpRkWjNXU2aBquC1jwjnY-oP7dayAzK29LiTcryEUh13JIjgmr1hj9VPun3QI-mxtAebnUlCAUgfG5WKSfXBanL6dXAyGAE21m8M5rDULxXEUdStjGpsn3hybB7rafTsMHNslnN5ryUWQouJvDeTeFi3TCKhQ12JtWTv104gNPqVgqy-VxjAH1BSza9tV0vg2qFDwfanqG12BjQuOeLnATwCJLLGUFZeZQOMYoPIOFbiNHuYzjpbLPj3kEWdDj2gl2LZjZWXSAW45opafYS_Ex0HIC6MoSRzsir3WfCSRe0M3K4sGD9Ezq1LTCWnT4G2IOFlle1KMu4A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/user",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user"
 							]
 						}
 					},

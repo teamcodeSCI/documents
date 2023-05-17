@@ -30,6 +30,7 @@ Route::prefix('department')->group(function () {
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::get('/user', [AuthController::class, 'getUser']);
+    Route::get('/get-all-user', [AuthController::class, 'getAllUser']);
     Route::prefix('curriculum')->group(function () {
         Route::get('/', [CurriculumController::class, 'index']);
         Route::post('/create', [CurriculumController::class, 'store']);

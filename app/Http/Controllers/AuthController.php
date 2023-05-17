@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 
@@ -120,5 +121,41 @@ class AuthController extends Controller
                 'message' => $e
             ], 500);
         }
+    }
+    public function getAllUser(Request $request)
+    {
+        try {
+            $departmentId = $request->query('departmentId');
+            $user = DB::table('users')
+                ->select('*')
+                ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
+                ->get();
+            if ($departmentId === null) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Success',
+                    'data' => $user
+                ], 200);
+            }
+
+            $user = DB::table('users')
+                ->select('*')
+                ->where('users.department_id', '=', $departmentId)
+                ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
+                ->get();
+            return response()->json([
+                'status' => true,
+                'message' => 'Success',
+                'data' => $user
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e
+            ], 500);
+        }
+    }
+    public function updateUser(Request $request, $id)
+    {
     }
 }
