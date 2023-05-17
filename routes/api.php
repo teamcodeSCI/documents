@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LessonController;
@@ -17,26 +18,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index']);
     Route::post('/create', [DepartmentController::class, 'store']);
     Route::put('/{department}', [DepartmentController::class, 'update']);
     Route::delete('/{department}', [DepartmentController::class, 'destroy']);
 });
-Route::prefix('curriculum')->group(function () {
-    Route::get('/', [CurriculumController::class, 'index']);
-    Route::post('/create', [CurriculumController::class, 'store']);
-    Route::get('/{curriculum}', [CurriculumController::class, 'show']);
-    Route::put('/{curriculum}', [CurriculumController::class, 'update']);
-    Route::delete('/{curriculum}', [CurriculumController::class, 'destroy']);
-});
-Route::prefix('lesson')->group(function () {
-    Route::get('/', [LessonController::class, 'index']);
-    Route::post('/create', [LessonController::class, 'store']);
-    Route::get('/{lesson}', [LessonController::class, 'show']);
-    Route::put('/{lesson}', [LessonController::class, 'update']);
-    Route::delete('/{lesson}', [LessonController::class, 'destroy']);
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::prefix('curriculum')->group(function () {
+        Route::get('/', [CurriculumController::class, 'index']);
+        Route::post('/create', [CurriculumController::class, 'store']);
+        Route::get('/{curriculum}', [CurriculumController::class, 'show']);
+        Route::put('/{curriculum}', [CurriculumController::class, 'update']);
+        Route::delete('/{curriculum}', [CurriculumController::class, 'destroy']);
+    });
+    Route::prefix('lesson')->group(function () {
+        Route::get('/', [LessonController::class, 'index']);
+        Route::post('/create', [LessonController::class, 'store']);
+        Route::get('/{lesson}', [LessonController::class, 'show']);
+        Route::put('/{lesson}', [LessonController::class, 'update']);
+        Route::delete('/{lesson}', [LessonController::class, 'destroy']);
+    });
 });
