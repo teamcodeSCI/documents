@@ -157,5 +157,61 @@ class AuthController extends Controller
     }
     public function updateUser(Request $request, $id)
     {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'user not found',
+                ], 400);
+            }
+            $input = $request->all();
+            $input['department_id'] = $request->input('department_id');
+            $department = Department::find($input['department_id']);
+            if ($input['department_id'] !== null && !$department) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'department not found',
+                ], 400);
+            }
+
+            if ($input['department_id'] === null) {
+                $input['department_id'] = $user['department_id'];
+            }
+            $user->update($input);
+            return response()->json([
+                'status' => true,
+                'message' => 'Success',
+                'data' => $user
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e
+            ], 500);
+        }
+    }
+    public function deleteUser($id)
+    {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'user not found',
+                ], 400);
+            }
+            $user->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Success',
+
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e
+            ], 500);
+        }
     }
 }

@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/unauthorized', function () {
+    return response()->json([
+        'status' => false,
+        'message' => 'Unauthorized'
+    ], 401);
+})->name('unauthorized');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::prefix('department')->group(function () {
@@ -31,6 +37,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::get('/user', [AuthController::class, 'getUser']);
     Route::get('/get-all-user', [AuthController::class, 'getAllUser']);
+    Route::put('/user/{user}', [AuthController::class, 'updateUser']);
+    Route::delete('/user/{user}', [AuthController::class, 'deleteUser']);
     Route::prefix('curriculum')->group(function () {
         Route::get('/', [CurriculumController::class, 'index']);
         Route::post('/create', [CurriculumController::class, 'store']);
