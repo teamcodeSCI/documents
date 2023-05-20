@@ -18,22 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/unauthorized', function () {
-    return response()->json([
-        'status' => false,
-        'message' => 'Unauthorized'
-    ], 401);
-})->name('unauthorized');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::prefix('department')->group(function () {
-    Route::get('/', [DepartmentController::class, 'index']);
-    Route::post('/create', [DepartmentController::class, 'store']);
-    Route::put('/{department}', [DepartmentController::class, 'update']);
-    Route::delete('/{department}', [DepartmentController::class, 'destroy']);
-});
-Route::get('/get-all-curriculum', [CurriculumController::class, 'index']);
-Route::get('/get-all-lesson', [LessonController::class, 'index']);
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::get('/user', [AuthController::class, 'getUser']);
@@ -51,5 +35,21 @@ Route::middleware(['auth:api'])->group(function () {
         Route::delete('/{lesson}', [LessonController::class, 'destroy']);
     });
 });
-Route::get('curriculum/{curriculum}', [CurriculumController::class, 'show']);
-Route::get('lesson/{lesson}', [LessonController::class, 'show']);
+Route::get('/unauthorized', function () {
+    return response()->json([
+        'status' => false,
+        'message' => 'Unauthorized'
+    ], 401);
+})->name('unauthorized');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::prefix('department')->group(function () {
+    Route::get('/', [DepartmentController::class, 'index']);
+    Route::post('/create', [DepartmentController::class, 'store']);
+    Route::put('/{department}', [DepartmentController::class, 'update']);
+    Route::delete('/{department}', [DepartmentController::class, 'destroy']);
+});
+Route::get('/curriculum', [CurriculumController::class, 'index']);
+Route::get('/lesson', [LessonController::class, 'index']);
+Route::get('/curriculum/{curriculum}', [CurriculumController::class, 'show']);
+Route::get('/lesson/{lesson}', [LessonController::class, 'show']);
