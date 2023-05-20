@@ -32,7 +32,8 @@ Route::prefix('department')->group(function () {
     Route::put('/{department}', [DepartmentController::class, 'update']);
     Route::delete('/{department}', [DepartmentController::class, 'destroy']);
 });
-
+Route::get('/get-all-curriculum', [CurriculumController::class, 'index']);
+Route::get('/get-all-lesson', [LessonController::class, 'index']);
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::get('/user', [AuthController::class, 'getUser']);
@@ -40,14 +41,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/user/{user}', [AuthController::class, 'updateUser']);
     Route::delete('/user/{user}', [AuthController::class, 'deleteUser']);
     Route::prefix('curriculum')->group(function () {
-        Route::get('/', [CurriculumController::class, 'index']);
         Route::post('/create', [CurriculumController::class, 'store']);
         Route::get('/{curriculum}', [CurriculumController::class, 'show']);
         Route::put('/{curriculum}', [CurriculumController::class, 'update']);
         Route::delete('/{curriculum}', [CurriculumController::class, 'destroy']);
     });
     Route::prefix('lesson')->group(function () {
-        Route::get('/', [LessonController::class, 'index']);
+
         Route::post('/create', [LessonController::class, 'store']);
         Route::get('/{lesson}', [LessonController::class, 'show']);
         Route::put('/{lesson}', [LessonController::class, 'update']);

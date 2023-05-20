@@ -126,10 +126,11 @@ class AuthController extends Controller
     {
         try {
             $departmentId = $request->query('departmentId');
-            $user = DB::table('users')
-                ->select('*')
-                ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
-                ->get();
+            $user = User::all();
+            foreach ($user as $item) {
+                $item['department'] = Department::select('name', 'code')->where('id', '=', $item['department_id'])->get();
+                $item['department'] = $item['department'][0];
+            }
             if ($departmentId === null) {
                 return response()->json([
                     'status' => true,
@@ -137,16 +138,15 @@ class AuthController extends Controller
                     'data' => $user
                 ], 200);
             }
-
-            $user = DB::table('users')
-                ->select('*')
-                ->where('users.department_id', '=', $departmentId)
-                ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
-                ->get();
+            $users = [];
+            foreach ($user as $item) {
+                if ($item['department_id'] === (int)$departmentId)
+                    array_push($users, $item);
+            }
             return response()->json([
                 'status' => true,
                 'message' => 'Success',
-                'data' => $user
+                'data' => $users
             ], 200);
         } catch (Exception $e) {
             return response()->json([
