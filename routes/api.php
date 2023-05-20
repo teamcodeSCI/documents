@@ -42,15 +42,14 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('/user/{user}', [AuthController::class, 'deleteUser']);
     Route::prefix('curriculum')->group(function () {
         Route::post('/create', [CurriculumController::class, 'store']);
-        Route::get('/{curriculum}', [CurriculumController::class, 'show']);
         Route::put('/{curriculum}', [CurriculumController::class, 'update']);
         Route::delete('/{curriculum}', [CurriculumController::class, 'destroy']);
     });
     Route::prefix('lesson')->group(function () {
-
         Route::post('/create', [LessonController::class, 'store']);
-        Route::get('/{lesson}', [LessonController::class, 'show']);
         Route::put('/{lesson}', [LessonController::class, 'update']);
         Route::delete('/{lesson}', [LessonController::class, 'destroy']);
     });
 });
+Route::get('curriculum/{curriculum}', [CurriculumController::class, 'show']);
+Route::get('lesson/{lesson}', [LessonController::class, 'show']);
