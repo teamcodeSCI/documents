@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 19, 2023 lúc 03:38 AM
--- Phiên bản máy phục vụ: 10.4.24-MariaDB
--- Phiên bản PHP: 7.4.29
+-- Thời gian đã tạo: Th5 20, 2023 lúc 05:51 AM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,10 +31,10 @@ CREATE TABLE `curriculums` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `department_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `images` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `images` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -47,8 +47,8 @@ CREATE TABLE `curriculums` (
 
 CREATE TABLE `departments` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -58,8 +58,8 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'PR', 'Paris', '2023-05-18 03:15:37', '2023-05-18 03:15:37'),
-(2, 'KN', 'Kangnam', '2023-05-18 03:15:48', '2023-05-18 03:15:48');
+(1, 'KN', 'Kangnam', '2023-05-19 07:43:17', '2023-05-19 07:43:17'),
+(2, 'PR', 'Paris', '2023-05-20 03:28:10', '2023-05-20 03:28:10');
 
 -- --------------------------------------------------------
 
@@ -69,11 +69,11 @@ INSERT INTO `departments` (`id`, `code`, `name`, `created_at`, `updated_at`) VAL
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -86,10 +86,10 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `lessons` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `curriculum_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lesson_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `question_group_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `lesson_link` varchar(255) DEFAULT NULL,
+  `question_group_link` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -102,7 +102,7 @@ CREATE TABLE `lessons` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -111,18 +111,18 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(34, '2014_10_12_000000_create_users_table', 1),
-(35, '2014_10_12_100000_create_password_resets_table', 1),
-(36, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
-(37, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
-(38, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
-(39, '2016_06_01_000004_create_oauth_clients_table', 1),
-(40, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
-(41, '2019_08_19_000000_create_failed_jobs_table', 1),
-(42, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(43, '2023_05_10_034701_create_departments_table', 1),
-(44, '2023_05_10_034953_create_curriculums_table', 1),
-(45, '2023_05_10_035917_create_lessons_table', 1);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
+(4, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
+(5, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
+(6, '2016_06_01_000004_create_oauth_clients_table', 1),
+(7, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
+(8, '2019_08_19_000000_create_failed_jobs_table', 1),
+(9, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(10, '2023_05_10_034701_create_departments_table', 1),
+(11, '2023_05_10_034953_create_curriculums_table', 1),
+(12, '2023_05_10_035917_create_lessons_table', 1);
 
 -- --------------------------------------------------------
 
@@ -131,11 +131,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `oauth_access_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(100) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `scopes` text DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -147,7 +147,10 @@ CREATE TABLE `oauth_access_tokens` (
 --
 
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-('4cc8b6d0efd970a20576a45f768181412c3deabf1d3098d9855b2c30b76fcf118c192541468e40b9', 4, 1, 'Servey', '[]', 0, '2023-05-18 03:24:27', '2023-05-18 03:24:27', '2023-06-17 10:24:27');
+('0b52485e0b2bf4bfce1577cba31e5d27d985636c94348aec3b38dbe335d39a4ba95bac8a5072cb27', 10, 1, 'Servey', '[]', 0, '2023-05-20 03:33:08', '2023-05-20 03:33:08', '2023-06-19 10:33:08'),
+('c0fc6522286944ad35a5acc7519efe271d4a34cc8f8eef8ff071ec2bd67da20838b74b63ec65c99a', 1, 1, 'Servey', '[]', 0, '2023-05-20 02:40:45', '2023-05-20 02:40:45', '2023-06-19 09:40:45'),
+('d8e690a30e3691cf1820f14ca89afbe249e7521f93c323eaa89aa1e6642717ec8125d95ec425fa4b', 1, 1, 'Servey', '[]', 0, '2023-05-20 03:13:03', '2023-05-20 03:13:03', '2023-06-19 10:13:03'),
+('fd1056c95137690bca1e80e459a2c905f54968182fc7b5505ff2a920bc80f0acc0914f8a3c315ae3', 4, 1, 'Servey', '[]', 0, '2023-05-20 02:10:50', '2023-05-20 02:10:50', '2023-06-19 09:10:50');
 
 -- --------------------------------------------------------
 
@@ -156,10 +159,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 --
 
 CREATE TABLE `oauth_auth_codes` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(100) NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -173,10 +176,10 @@ CREATE TABLE `oauth_auth_codes` (
 CREATE TABLE `oauth_clients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `secret` varchar(100) DEFAULT NULL,
+  `provider` varchar(255) DEFAULT NULL,
+  `redirect` text NOT NULL,
   `personal_access_client` tinyint(1) NOT NULL,
   `password_client` tinyint(1) NOT NULL,
   `revoked` tinyint(1) NOT NULL,
@@ -189,8 +192,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', '0uIdYcdPq0TVyyhP3r3uzEZCLaNWIvBjj9Iw1y7U', NULL, 'http://localhost', 1, 0, 0, '2023-05-18 03:24:24', '2023-05-18 03:24:24'),
-(2, NULL, 'Laravel Password Grant Client', 'FRYE98AdOG7HmSs0dv2pNYuVVGhZtvZ0FL4JqyKf', 'users', 'http://localhost', 0, 1, 0, '2023-05-18 03:24:24', '2023-05-18 03:24:24');
+(1, NULL, 'Laravel Personal Access Client', 'ySoojszYlilbi67ynwxhrBniuzMK6dBsuqf0ilXi', NULL, 'http://localhost', 1, 0, 0, '2023-05-19 07:42:56', '2023-05-19 07:42:56'),
+(2, NULL, 'Laravel Password Grant Client', 'Jls82fSkBvOWBM41mKNmbPBCuQDEsbOpha2Ytm7H', 'users', 'http://localhost', 0, 1, 0, '2023-05-19 07:42:56', '2023-05-19 07:42:56');
 
 -- --------------------------------------------------------
 
@@ -210,7 +213,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2023-05-18 03:24:24', '2023-05-18 03:24:24');
+(1, 1, '2023-05-19 07:42:56', '2023-05-19 07:42:56');
 
 -- --------------------------------------------------------
 
@@ -219,8 +222,8 @@ INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `u
 --
 
 CREATE TABLE `oauth_refresh_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(100) NOT NULL,
+  `access_token_id` varchar(100) NOT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -232,8 +235,8 @@ CREATE TABLE `oauth_refresh_tokens` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -245,11 +248,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -264,13 +267,13 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `department_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,10 +283,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `department_id`, `name`, `email`, `email_verified_at`, `password`, `status`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 2, 'Đức', 'duc@gmail.com', NULL, '$2y$10$D6Pcf4TlaU3c/zAN9bieK.V2HRHNeM/zmnrNQEM1J2BpmJv2z3mXK', 0, 'USER', NULL, '2023-05-18 03:16:06', '2023-05-18 03:16:06'),
-(4, 1, 'Đức', 'duc1@gmail.com', NULL, '$2y$10$PhCv.6x6Ew.r6RJsEAslJeilKOpP00.H7w9.qY9QgAHYueTWCcq82', 0, 'USER', NULL, '2023-05-18 03:16:18', '2023-05-18 03:16:18'),
-(5, 1, 'Đức', 'duc2@gmail.com', NULL, '$2y$10$ZkUw2/3zmCOjSepgfR9DQuC9Zv6C34ntS7LMwkcZGiL4U7zfPPzFS', 1, 'USER', NULL, '2023-05-18 03:16:31', '2023-05-18 03:16:31'),
-(7, 1, 'Đức', 'duc11@gmail.com', NULL, '$2y$10$0wCpnsqE5Ml4Rufn6Kt0LOzLTu3B5.XBxX1NjFaEfEFtzjSUpE0b2', 1, 'USER', NULL, '2023-05-18 07:02:20', '2023-05-18 07:02:20');
+(1, 1, 'Đức', 'duc2@gmail.com', NULL, '$2y$10$BeIk8LVQL4/zdU0itnwBd./xUsCufIrCLU10kHgiTd/nHR6tMxRtO', 1, 'USER', NULL, '2023-05-19 07:43:22', '2023-05-19 07:43:22'),
+(7, 1, 'Đức', 'duc20@gmail.com', NULL, '$2y$10$sXYMeNXjSAgyrz12N/Auj.IQDODzEM6T.De4kLSt4HrEedSP14bKm', 1, 'USER', NULL, '2023-05-20 03:27:53', '2023-05-20 03:27:53'),
+(8, 2, 'Đức', 'duc10@gmail.com', NULL, '$2y$10$/XSYlC0YTps81/McPqOkXexPMZXaJ12MnGvV0v1mgr37t0LPFEikO', 1, 'USER', NULL, '2023-05-20 03:28:17', '2023-05-20 03:28:17'),
+(9, 2, 'Đức', 'duc100@gmail.com', NULL, '$2y$10$jljW8cAxDoSnRaz2HHiWM.4EVBrSSaXCiIFpqPBFmOmzm3Dl4Ypx6', 1, 'USER', NULL, '2023-05-20 03:28:21', '2023-05-20 03:28:21'),
+(10, 1, 'vietisme1002', 'vietnguyen10022001@gmail.com', NULL, '$2y$10$daghx/uQoe3Lbhs2LUoirepmGi2inkkTC/Rw.oHV75XGcmDgtepZe', 0, 'USER', NULL, '2023-05-20 03:28:29', '2023-05-20 03:28:29');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -407,7 +411,7 @@ ALTER TABLE `lessons`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `oauth_clients`
@@ -431,7 +435,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
