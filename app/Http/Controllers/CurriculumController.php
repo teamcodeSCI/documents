@@ -208,6 +208,7 @@ class CurriculumController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Success',
+                'data' => $curriculum
             ], 200);
         } catch (Exception $e) {
             return response()->json([
