@@ -36,29 +36,29 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            $validator = FacadesValidator::make($request->all(), [
-                'department_id' => 'required',
-                'status' => 'required',
-                'role' => 'required',
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required',
-                'c_password' => 'required|same:password',
-            ]);
-            if (!$validator->fails()) {
-                return response()->json(['status' => false, 'message' => $validator->errors()], 400);
-            }
-            $input = $request->all();
-            $department = Department::find($input['department_id']);
-            if (!$department) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'department not found'
-                ], 400);
-            }
-            $input['password'] = bcrypt($input['password']);
-            $user = User::create($input);
-            return response()->json(['status' => true, 'message' => 'Success', 'data' => $user], 200);
+        $validator = FacadesValidator::make($request->all(), [
+            'department_id' => 'required',
+            'status' => 'required',
+            'role' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => 'Lỗi'], 400);
+        }
+        $input = $request->all();
+        $department = Department::find($input['department_id']);
+        if (!$department) {
+            return response()->json([
+                'status' => false,
+                'message' => 'department not found'
+            ], 400);
+        }
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        return response()->json(['status' => true, 'message' => 'Success', 'data' => $user], 200);
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
