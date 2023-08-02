@@ -10,5 +10,5 @@ class Curriculum extends Model
     use HasFactory;
     protected $table = 'curriculums';
     protected $primaryKey = 'id';
-    protected $fillable = ['department_id', 'user_id', 'name', 'images', 'status', 'description'];
+    protected $fillable = ['department_id', 'user_id', 'name', 'images', 'status', 'size', 'vote', 'view', 'description'];
 }

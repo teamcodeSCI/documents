@@ -20,8 +20,9 @@ class CurriculumController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = $request->query('department_id');
-            if ($query === null) {
+            $curriculum = Curriculum::query();
+
+            if ($curriculum === null) {
                 $curriculum = Curriculum::all();
                 return response()->json([
                     'status' => true,
@@ -29,12 +30,36 @@ class CurriculumController extends Controller
                     'data' => $curriculum
                 ], 200);
             }
-            $curriculum = Curriculum::where('department_id', '=', $query)->get();
-            return response()->json([
-                'status' => true,
-                'message' => 'Success',
-                'data' => $curriculum
-            ], 200);
+
+            if ($request->has('department_id')) {
+                $curriculum->where('department_id', 'LIKE', '%' . $request->department_id . '%');
+            }
+            if ($request->has('name')) {
+                $curriculum->where('name', 'LIKE', '%' . $request->name . '%');
+            }
+            if ($request->has('status')) {
+                $curriculum->where('status', $request->status);
+            }
+            if ($request->has('updated_at')) {
+                $curriculum->whereDate('updated_at', $request->updated_at);
+            }
+
+            return $curriculum->get();
+            // $query = $request->query('department_id');
+            // if ($query === null) {
+            //     $curriculum = Curriculum::all();
+            //     return response()->json([
+            //         'status' => true,
+            //         'message' => 'Success',
+            //         'data' => $curriculum
+            //     ], 200);
+            // }
+            // $curriculum = Curriculum::where('department_id', '=', $query)->get();
+            // return response()->json([
+            //     'status' => true,
+            //     'message' => 'Success',
+            //     'data' => $curriculum
+            // ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
