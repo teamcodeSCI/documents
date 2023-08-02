@@ -26,7 +26,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('/user/{user}', [AuthController::class, 'deleteUser']);
     Route::prefix('curriculum')->group(function () {
         Route::post('/create', [CurriculumController::class, 'store']);
-        Route::put('/{curriculum}', [CurriculumController::class, 'update']);
         Route::delete('/{curriculum}', [CurriculumController::class, 'destroy']);
     });
     Route::prefix('lesson')->group(function () {
@@ -50,6 +49,7 @@ Route::prefix('department')->group(function () {
     Route::delete('/{department}', [DepartmentController::class, 'destroy']);
 });
 Route::get('/curriculum', [CurriculumController::class, 'index']);
+Route::put('/curriculum/{curriculum}', [CurriculumController::class, 'update']);
 Route::get('/lesson', [LessonController::class, 'index']);
 Route::get('/curriculum/{curriculum}', [CurriculumController::class, 'show']);
 Route::get('/lesson/{lesson}', [LessonController::class, 'show']);
